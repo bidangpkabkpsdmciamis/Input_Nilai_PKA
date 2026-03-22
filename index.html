@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Form Penilaian Peserta Diklat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5eefc 0%, #e9daf5 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #4a1d6d 0%, #6b2e9e 100%);
+            border-radius: 24px;
+            padding: 30px 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 35px -10px rgba(74, 29, 109, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(245, 176, 66, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .logo-area i {
+            font-size: 48px;
+            color: #f5b042;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: rgba(255,255,255,0.85);
+            font-size: 14px;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 30px;
+            background: white;
+            padding: 12px 20px;
+            border-radius: 60px;
+            box-shadow: var(--shadow);
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(5px);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 10px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #4a1d6d;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tab-btn:hover {
+            background: #f5b04220;
+            color: #e67e22;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #6b2e9e, #9b4dcc);
+            color: white;
+            box-shadow: 0 4px 12px rgba(107, 46, 158, 0.3);
+        }
+
+        /* Card Form */
+        .form-card {
+            background: white;
+            border-radius: 28px;
+            padding: 35px;
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.15);
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-title {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4a1d6d, #9b4dcc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .form-title i {
+            background: linear-gradient(135deg, #f5b042, #e67e22);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 28px;
+        }
+
+        .divider {
+            height: 3px;
+            background: linear-gradient(90deg, #f5b042, #e67e22, #9b4dcc);
+            margin: 20px 0 25px 0;
+            border-radius: 3px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #2d2d3a;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        label i {
+            color: #f5b042;
+            margin-right: 6px;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2d5f0;
+            border-radius: 14px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s;
+            background: #fefcff;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #9b4dcc;
+            box-shadow: 0 0 0 3px rgba(155, 77, 204, 0.1);
+        }
+
+        input:disabled {
+            background: #f3f0f7;
+            color: #4a1d6d;
+            font-weight: 500;
+        }
+
+        .score-group {
+            background: #faf7ff;
+            padding: 15px 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #f5b042;
+        }
+
+        .score-label {
+            font-weight: 700;
+            color: #4a1d6d;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .score-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .score-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .score-item label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #6b2e9e;
+        }
+
+        select.score-select {
+            padding: 10px 12px;
+            font-size: 13px;
+        }
+
+        button.submit-btn {
+            background: linear-gradient(135deg, #f5b042, #e67e22);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 40px;
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
+        }
+
+        button.submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(230, 126, 34, 0.4);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #1f2937;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: #10b981;
+        }
+
+        .toast.error {
+            background: #ef4444;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .tabs {
+                border-radius: 20px;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+            }
+            .form-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="logo-area">
+            <i class="fas fa-clipboard-list"></i>
+            <h1>Sistem Penilaian Peserta</h1>
+        </div>
+        <p class="subtitle">Evaluasi Akademik & Pengembangan Kompetensi | Ungu Emas Prestise</p>
+    </header>
+
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="1">1. Evaluasi Akademik</button>
+        <button class="tab-btn" data-tab="2">2. Pembelajaran Stula</button>
+        <button class="tab-btn" data-tab="3">3. Rekap Aksi Perubahan</button>
+        <button class="tab-btn" data-tab="4">4. Implementasi Aksi</button>
+        <button class="tab-btn" data-tab="5">5. Evaluasi Pengampu</button>
+        <button class="tab-btn" data-tab="6">6. Evaluasi Penyelenggara</button>
+        <button class="tab-btn" data-tab="7">7. Evaluasi Mentor</button>
+        <button class="tab-btn" data-tab="8">8. Evaluasi Coach</button>
+    </div>
+
+    <div id="form-container"></div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+    // ======================= DATA PESERTA =======================
+    const pesertaData = {
+        1: "ADANG HARTONO, S.Sos., M.M.",
+        2: "AGUS SETIADI, S.IP., M.M.",
+        3: "ARIE SYAHRIAR MAULANA, S.T.",
+        4: "ARIS GUNANTO, S.Pd., M.Pd.",
+        5: "ASEP SULAEMAN, S.STP., M.M.",
+        6: "BUDI YUDIA WAHYU, S.STP., M.Si.",
+        7: "DADAN HARDIANTO, S.Hut., M.P.",
+        8: "DEDEN NURHADANA, S.H., M.H.",
+        9: "DIAN KUSDIANA, S.IP., M.M.",
+        10: "DINI KUSLIANI, S.H., M.Si.",
+        11: "EDIS HERDIS, S.Sos., M.M.",
+        12: "ERWIN FIRWANSYAH, S.IP., M.Si.",
+        13: "ERWIN MOCHAMMAD SYAM, S.IP.",
+        14: "FENY SETIAPRIYANA, S.T., M.M.",
+        15: "HERDIANA, S.E., M.Si.",
+        16: "HERRY SOMANTRI, S.E., M.M.",
+        17: "IRFAN HIELMI, S.STP., M.Si.",
+        18: "MAR DIYANA YUSUF, S.E., M.M.",
+        19: "MOCH. IVAN SAEFUL A., S.KM., M.Si.",
+        20: "MOHAMAD FAIZAL RONALD, S.STP., M.M.",
+        21: "OHIM ABDUROHIM, S.IP., M.Si.",
+        22: "RADEN ARIS SUKMAYANA, S.STP., M.Si.",
+        23: "RIFKI ARIFIN, S.H., M.M.",
+        24: "RINI VALIANTI, S.T., M.T., M.Sc.",
+        25: "SLAMET TAHER, S.ST., M.M.",
+        26: "TEDY TRESADI, S.E., M.M.",
+        27: "TIGIN ARY GINANJAR, S.STP., M.M.",
+        28: "WIDIYA PRANATA, S.STP., M.M.",
+        29: "drh. YANTI HERAYANI, M.M.",
+        30: "YUDY HENDRIANA, S.IP."
+    };
+
+    // Konfigurasi GAS - GANTI DENGAN URL DEPLOY WEB APP ANDA
+    const GAS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbz_placeholder/exec"; // GANTI dengan URL GAS asli
+
+    // Mapping setiap tab ke kolom spreadsheet
+    const formMapping = {
+        1: { // Evaluasi Akademik
+            fields: [
+                { col: "1C", label: "Penugasan Individu (Esai Isu Aktual)", type: "select", options: ["A (Sangat Baik)","B (Baik)","C (Cukup)","D (Kurang)"] },
+                { col: "1D", label: "Quiz Smart Governance", type: "select", options: ["A","B","C","D"] },
+                { col: "1E", label: "Penugasan Kelompok (Substansi Tayang)", type: "select", options: ["A","B","C","D"] },
+                { col: "1F", label: "Evaluasi Substansi", type: "select", options: ["A","B","C","D"] }
+            ]
+        },
+        2: { // Pembelajaran Stula
+            fields: [
+                { col: "2C", label: "Kualitas Dokumentasi Lesson Learnt", type: "select", options: ["A","B","C","D"] },
+                { col: "2D", label: "Kualitas Lesson Learnt Individu", type: "select", options: ["A","B","C","D"] }
+            ]
+        },
+        3: { // Rekap Aksi Perubahan
+            fields: [
+                { col: "3C", label: "Ketepatan Rencana Aksi Perubahan", type: "select", options: ["A","B","C","D"] },
+                { col: "3D", label: "Terobosan Inovatif", type: "select", options: ["A","B","C","D"] },
+                { col: "3E", label: "Tahapan & Pengendalian Risiko", type: "select", options: ["A","B","C","D"] },
+                { col: "3F", label: "Kejelasan Peta Sumberdaya", type: "select", options: ["A","B","C","D"] },
+                { col: "3G", label: "Strategi Pengembangan Kompetensi", type: "select", options: ["A","B","C","D"] }
+            ]
+        },
+        4: { // Implementasi Aksi Perubahan
+            fields: [
+                { col: "4C", label: "Capaian Hasil Perubahan", type: "select", options: ["A","B","C","D"] },
+                { col: "4D", label: "Kepemimpinan Kinerja", type: "select", options: ["A","B","C","D"] },
+                { col: "4E", label: "Kemanfaatan Aksi Perubahan", type: "select", options: ["A","B","C","D"] },
+                { col: "4F", label: "Keberlanjutan Aksi", type: "select", options: ["A","B","C","D"] },
+                { col: "4G", label: "Strategi Pengembangan Kompetensi (Implementasi)", type: "select", options: ["A","B","C","D"] },
+                { col: "4H", label: "Keterkaitan Mata Pelatihan Pilihan", type: "select", options: ["A","B","C","D"] },
+                { col: "4I", label: "Diseminasi & Publikasi", type: "select", options: ["A","B","C","D"] }
+            ]
+        },
+        5: { // Evaluasi Pengampu Materi
+            fields: [
+                { col: "5C", label: "Kerja sama dan Prakarsa", type: "select", options: ["A","B","C","D"] },
+                { col: "5D", label: "Kepemimpinan (Kerja Kelompok)", type: "select", options: ["A","B","C","D"] },
+                { col: "5E", label: "Kedisiplinan (Integritas)", type: "select", options: ["A","B","C","D"] }
+            ]
+        },
+        6: { // Evaluasi Penyelenggara
+            fields: [
+                { col: "6C", label: "Kedisiplinan & Kode Etik", type: "select", options: ["A","B","C","D"] }
+            ]
+        },
+        7: { // Evaluasi Mentor
+            fields: [
+                { col: "7C", label: "Proses & Hasil Mentoring", type: "select", options: ["A","B","C","D"] },
+                { col: "7D", label: "Ketepatan Strategi Pengembangan Potensi", type: "select", options: ["A","B","C","D"] },
+                { col: "7E", label: "Capaian Pengembangan Potensi Diri", type: "select", options: ["A","B","C","D"] },
+                { col: "7F", label: "Mentoring Pengembangan Potensi", type: "select", options: ["A","B","C","D"] }
+            ]
+        },
+        8: { // Evaluasi Coach
+            fields: [
+                { col: "8C", label: "Penginformasian Hasil Pemetaan", type: "select", options: ["A","B","C","D"] },
+                { col: "8D", label: "Ketepatan Strategi Potensi Diri", type: "select", options: ["A","B","C","D"] },
+                { col: "8E", label: "Capaian Progres Potensi Diri", type: "select", options: ["A","B","C","D"] },
+                { col: "8F", label: "Coaching Pengembangan Potensi", type: "select", options: ["A","B","C","D"] }
+            ]
+        }
+    };
+
+    let currentTab = "1";
+
+    // Render Form berdasarkan tab
+    function renderForm(tabId) {
+        const container = document.getElementById("form-container");
+        const mapping = formMapping[tabId];
+        if (!mapping) return;
+
+        const ndhOptions = Object.keys(pesertaData).map(ndh => `<option value="${ndh}">${ndh}</option>`).join('');
+
+        let fieldsHtml = '';
+        mapping.fields.forEach(field => {
+            fieldsHtml += `
+                <div class="score-item">
+                    <label>${field.label}</label>
+                    <select class="score-select" data-col="${field.col}">
+                        <option value="">Pilih Nilai</option>
+                        ${field.options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+                    </select>
+                </div>
+            `;
+        });
+
+        const html = `
+            <div class="form-card">
+                <div class="form-title">
+                    <i class="fas fa-star-of-life"></i> 
+                    <span>${getTabTitle(tabId)}</span>
+                </div>
+                <div class="divider"></div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-hashtag"></i> NDH</label>
+                        <select id="ndhSelect_${tabId}" class="ndh-select">
+                            <option value="">Pilih NDH</option>
+                            ${ndhOptions}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-user-graduate"></i> Nama Peserta</label>
+                        <input type="text" id="namaPeserta_${tabId}" readonly disabled placeholder="Nama akan otomatis muncul">
+                    </div>
+                </div>
+                <div class="score-group">
+                    <div class="score-label"><i class="fas fa-chart-line"></i> Form Penilaian</div>
+                    <div class="score-inputs" id="scoreInputs_${tabId}">
+                        ${fieldsHtml}
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <button class="submit-btn" data-tab="${tabId}"><i class="fas fa-save"></i> Simpan Penilaian</button>
+                </div>
+            </div>
+        `;
+        container.innerHTML = html;
+
+        // Event listener NDH untuk auto isi nama
+        const ndhSelect = document.getElementById(`ndhSelect_${tabId}`);
+        ndhSelect.addEventListener('change', function() {
+            const namaField = document.getElementById(`namaPeserta_${tabId}`);
+            const selectedNdh = this.value;
+            namaField.value = pesertaData[selectedNdh] || '';
+        });
+
+        // Submit button
+        const submitBtn = document.querySelector(`.submit-btn[data-tab="${tabId}"]`);
+        submitBtn.addEventListener('click', () => submitForm(tabId));
+    }
+
+    function getTabTitle(tabId) {
+        const titles = {
+            1: "Evaluasi Akademik",
+            2: "Evaluasi Pembelajaran Stula",
+            3: "Rekapitulasi Perencanaan Aksi Perubahan",
+            4: "Rekapitulasi Nilai Implementasi Aksi Perubahan",
+            5: "Evaluasi Sikap & Perilaku (Pengampu Materi)",
+            6: "Evaluasi Sikap & Perilaku (Penyelenggara)",
+            7: "Evaluasi Sikap & Perilaku (Mentor)",
+            8: "Evaluasi Sikap & Perilaku (Coach)"
+        };
+        return titles[tabId] || "Form Penilaian";
+    }
+
+    async function submitForm(tabId) {
+        const ndhSelect = document.getElementById(`ndhSelect_${tabId}`);
+        const ndh = ndhSelect.value;
+        if (!ndh) {
+            showToast("Pilih NDH terlebih dahulu!", "error");
+            return;
+        }
+        const nama = pesertaData[ndh];
+        if (!nama) return;
+
+        // Kumpulkan data nilai
+        const scoreItems = document.querySelectorAll(`#scoreInputs_${tabId} .score-select`);
+        let payload = {
+            ndh: ndh,
+            nama: nama,
+            tab: tabId,
+            values: {}
+        };
+
+        for (let item of scoreItems) {
+            const col = item.getAttribute('data-col');
+            const val = item.value;
+            if (!val) {
+                showToast(`Harap isi semua nilai untuk ${item.previousElementSibling?.innerText || 'komponen'}`, "error");
+                return;
+            }
+            payload.values[col] = val;
+        }
+
+        // Kirim ke GAS
+        try {
+            showToast("Menyimpan data...", "info");
+            const response = await fetch(GAS_WEBAPP_URL, {
+                method: "POST",
+                mode: "no-cors", // karena GAS, kita gunakan no-cors agar request berjalan, namun response tetap perlu handle
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+            // karena mode no-cors tidak bisa baca response, kita asumsikan sukses jika tidak error
+            showToast("✅ Data berhasil disimpan!", "success");
+            // reset form optional
+            scoreItems.forEach(item => item.value = "");
+            ndhSelect.value = "";
+            document.getElementById(`namaPeserta_${tabId}`).value = "";
+        } catch (err) {
+            console.error(err);
+            showToast("Gagal menyimpan data. Cek koneksi atau URL GAS.", "error");
+        }
+    }
+
+    function showToast(msg, type = "info") {
+        const toast = document.getElementById("toast");
+        toast.textContent = msg;
+        toast.classList.remove("success", "error");
+        if (type === "success") toast.classList.add("success");
+        if (type === "error") toast.classList.add("error");
+        toast.classList.add("show");
+        setTimeout(() => {
+            toast.classList.remove("show");
+        }, 3000);
+    }
+
+    // Tab switching
+    function initTabs() {
+        const btns = document.querySelectorAll(".tab-btn");
+        btns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                btns.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                currentTab = btn.getAttribute("data-tab");
+                renderForm(currentTab);
+            });
+        });
+    }
+
+    // initial load
+    renderForm("1");
+    initTabs();
+</script>
+
+<!-- Penjelasan: GAS endpoint harus di-deploy terpisah, script ini terhubung ke Google Spreadsheet ID: 1P6IYul_D2hCNwkmylqGRbJrQXDSoPWZK__W4_20NvD4, sheet "Isian Form Penilaian" -->
+</body>
+</html>
