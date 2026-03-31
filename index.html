@@ -32,9 +32,9 @@
             min-height: 100vh;
         }
 
-        /* Unified Background */
+        /* Unified Background - Updated with new image */
         .unified-bg {
-            background-image: url('https://i.ibb.co.com/bghFsR4f/BKPSDM-Tampak-Atas.jpg');
+            background-image: url('https://i.ibb.co.com/tTHsc01C/Untitled-design.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -367,7 +367,79 @@
             justify-content: center;
         }
 
-        /* Qualification List Styles - Vertical List Below Form */
+        /* Qualification List Styles - Enhanced Interactive Version for Initial State */
+        .qualification-interactive {
+            margin-top: 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+        
+        .qualification-interactive .qualification-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--primary-dark);
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid var(--accent);
+            padding-left: 14px;
+        }
+        
+        .qualification-items-interactive {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+        }
+        
+        .qual-card-interactive {
+            flex: 1;
+            min-width: 160px;
+            background: white;
+            border-radius: 20px;
+            padding: 1rem 0.8rem;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            cursor: default;
+            border: 1px solid #eef2f8;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+        
+        .qual-card-interactive:hover {
+            transform: scale(1.03) translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 30px -12px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #ffffff, #fef9f0);
+        }
+        
+        .qual-range-big {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--accent-dark);
+            line-height: 1.3;
+            letter-spacing: -0.5px;
+            background: rgba(182, 139, 64, 0.1);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 40px;
+            margin-bottom: 10px;
+        }
+        
+        .qual-label-big {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-top: 8px;
+            display: block;
+        }
+        
+        /* Regular qualification list (inside form) remains unchanged */
         .qualification-list {
             margin-top: 2rem;
             padding: 1.25rem 1.5rem;
@@ -730,7 +802,7 @@
 
         .empty-state {
             text-align: center;
-            padding: 3rem 2rem;
+            padding: 2rem 2rem 1.5rem;
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(8px);
             border-radius: 24px;
@@ -748,17 +820,9 @@
         .empty-state p {
             font-size: 0.95rem;
             line-height: 1.6;
+            margin-bottom: 1rem;
         }
         
-        .empty-state .qualification-placeholder {
-            margin-top: 1.2rem;
-            text-align: left;
-            display: inline-block;
-            background: rgba(0,0,0,0.03);
-            padding: 0.8rem 1.2rem;
-            border-radius: 20px;
-        }
-
         @media (max-width: 850px) {
             .app-container { padding: 1rem; }
             .form-card { padding: 1.2rem; }
@@ -771,6 +835,8 @@
             .map-address-detail, .map-coord-badge, .map-link-hint { margin-left: 0; text-align: center; }
             .map-coord-badge { justify-content: center; }
             .qual-range { min-width: 120px; }
+            .qualification-items-interactive { flex-direction: column; }
+            .qual-card-interactive:hover { transform: scale(1.01) translateY(-2px); }
         }
 
         @media (max-width: 600px) {
@@ -805,15 +871,33 @@
         <div id="nestedArea"></div>
         <div id="formRenderArea">
             <div class="empty-state">
-                <i class="fas fa-folder-open"></i>
+                <i class="fas fa-chart-line"></i>
                 <p>Silahkan Bapak/Ibu mengisi formulir penilaian berdasarkan kategori diatas dengan kualifikasi penilaian sebagai berikut:</p>
-                <div class="qualification-placeholder">
-                    <div class="qualification-items" style="margin-top: 12px;">
-                        <div class="qual-item"><span class="qual-range">90,01 - 100</span><span class="qual-label">Sangat Memuaskan</span></div>
-                        <div class="qual-item"><span class="qual-range">80,01 - 90,00</span><span class="qual-label">Memuaskan</span></div>
-                        <div class="qual-item"><span class="qual-range">70,01 - 80,00</span><span class="qual-label">Baik</span></div>
-                        <div class="qual-item"><span class="qual-range">60,01 - 70,00</span><span class="qual-label">Kurang Baik</span></div>
-                        <div class="qual-item"><span class="qual-range">≤ 60</span><span class="qual-label">Tidak Memenuhi Kualifikasi</span></div>
+                <div class="qualification-interactive">
+                    <div class="qualification-title">
+                        <i class="fas fa-award"></i> Kualifikasi Penilaian Peserta Pelatihan
+                    </div>
+                    <div class="qualification-items-interactive">
+                        <div class="qual-card-interactive">
+                            <div class="qual-range-big">90,01 - 100</div>
+                            <div class="qual-label-big">Sangat Memuaskan</div>
+                        </div>
+                        <div class="qual-card-interactive">
+                            <div class="qual-range-big">80,01 - 90,00</div>
+                            <div class="qual-label-big">Memuaskan</div>
+                        </div>
+                        <div class="qual-card-interactive">
+                            <div class="qual-range-big">70,01 - 80,00</div>
+                            <div class="qual-label-big">Baik</div>
+                        </div>
+                        <div class="qual-card-interactive">
+                            <div class="qual-range-big">60,01 - 70,00</div>
+                            <div class="qual-label-big">Kurang Baik</div>
+                        </div>
+                        <div class="qual-card-interactive">
+                            <div class="qual-range-big">≤ 60</div>
+                            <div class="qual-label-big">Tidak Memenuhi Kualifikasi</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -899,16 +983,16 @@
     ];
     const GAS_URL = "https://script.google.com/macros/s/AKfycbwVSYxgIyqmAoVILQ8yPFutuxIWquFH3mWYXRXgy-mcW75dUfNb9X-EdsmIkRbwrDZX/exec";
 
-    // Master forms
+    // Master forms - title untuk form utama "Evaluasi Sikap dan Perilaku", role sesuai peran
     const formsMaster = [
         { id: 1, title: "Evaluasi Akademik", role: "Penguji", parent: "akademik", fields: [{ label: "Pemahaman dan identifikasi isu-isu aktual Agenda I, II, III (Esai-Penugasan Individu)", col: "1C" },{ label: "Quiz Smart Governance", col: "1D" },{ label: "Kualitas substansi bahan tayang dan sharing session (Penugasan Kelompok)", col: "1E" },{ label: "Evaluasi substansi", col: "1F" }] },
         { id: 2, title: "Evaluasi STULA", role: "Pendamping", parent: "stula", fields: [{ label: "Kualitas dokumentasi lesson learnt studi lapangan yang didukung dengan data dan informasi yang relevan (Penugasan Kelompok)", col: "2C" },{ label: "Kualitas lesson learnt adopsi & adaptasi hasil studi lapangan sesuai agenda pembelajaran (Penugasan Individu) ", col: "2D" }] },
         { id: 3, title: "Perencanaan Aksi Perubahan", role: "Penguji", parent: "aksi_perubahan", fields: [{ label: "Ketepatan rencana aksi perubahan", col: "3C" },{ label: "Terobosan inovatif", col: "3D" },{ label: "Tahapan rencana perubahan & pengendalian risiko", col: "3E" },{ label: "Kejelasan peta & pemanfaatan sumberdaya organisasi", col: "3F" },{ label: "Rencana strategi pengembangan kompetensi dalam aksi perubahan", col: "3G" }] },
         { id: 4, title: "Implementasi Aksi Perubahan", role: "Penguji", parent: "aksi_perubahan", fields: [{ label: "Capaian hasil perubahan terhadap rencana perubahan", col: "4C" },{ label: "Kepemimpinan kinerja", col: "4D" },{ label: "Kemanfaatan aksi perubahan", col: "4E" },{ label: "Keberlanjutan aksi perubahan", col: "4F" },{ label: "Pelaksanaan strategi pengembangan kompetensi dalam aksi perubahan", col: "4G" },{ label: "Keterkaitan mata pelatihan pilihan dengan aksi perubahan", col: "4H" },{ label: "Diseminasi dan publikasi aksi perubahan", col: "4I" }] },
-        { id: 5, title: "Pengampu Materi", role: "Evaluasi Sikap dan Perilaku", parent: "sikap_perilaku", fields: [{ label: "Kerja sama dan prakarsa", col: "5C" },{ label: "Kepemimpinan (Kerja Kelompok)", col: "5D" },{ label: "Kedisiplinan", col: "5E" }] },
-        { id: 6, title: "Penyelenggara", role: "Evaluasi Sikap dan Perilaku", parent: "sikap_perilaku", fields: [{ label: "Kedisiplinan (Integritas)", col: "6C" }] },
-        { id: 7, title: "Mentor", role: "Evaluasi Sikap dan Perilaku", parent: "sikap_perilaku", fields: [{ label: "Proses & hasil mentoring", col: "7C" },{ label: "Ketepatan strategi memilih pengembangan potensi diri", col: "7D" },{ label: "Capaian hasil pengembangan potensi diri", col: "7E" },{ label: "Mentoring pengembangan potensi diri", col: "7F" }] },
-        { id: 8, title: "Coach", role: "Evaluasi Sikap dan Perilaku", parent: "sikap_perilaku", fields: [{ label: "Penginformasian pemetaan sikap perilaku kepemimpinan", col: "8C" },{ label: "Ketepatan memilih strategi pengembangan potensi diri", col: "8D" },{ label: "Capaian hasil progres pengembangan potensi diri", col: "8E" },{ label: "Coaching pengembangan potensi diri", col: "8F" }] }
+        { id: 5, title: "Evaluasi Sikap dan Perilaku", role: "Pengampu Materi", parent: "sikap_perilaku", fields: [{ label: "Kerja sama dan prakarsa", col: "5C" },{ label: "Kepemimpinan (Kerja Kelompok)", col: "5D" },{ label: "Kedisiplinan", col: "5E" }] },
+        { id: 6, title: "Evaluasi Sikap dan Perilaku", role: "Penyelenggara", parent: "sikap_perilaku", fields: [{ label: "Kedisiplinan (Integritas)", col: "6C" }] },
+        { id: 7, title: "Evaluasi Sikap dan Perilaku", role: "Mentor", parent: "sikap_perilaku", fields: [{ label: "Proses & hasil mentoring", col: "7C" },{ label: "Ketepatan strategi memilih pengembangan potensi diri", col: "7D" },{ label: "Capaian hasil pengembangan potensi diri", col: "7E" },{ label: "Mentoring pengembangan potensi diri", col: "7F" }] },
+        { id: 8, title: "Evaluasi Sikap dan Perilaku", role: "Coach", parent: "sikap_perilaku", fields: [{ label: "Penginformasian pemetaan sikap perilaku kepemimpinan", col: "8C" },{ label: "Ketepatan memilih strategi pengembangan potensi diri", col: "8D" },{ label: "Capaian hasil progres pengembangan potensi diri", col: "8E" },{ label: "Coaching pengembangan potensi diri", col: "8F" }] }
     ];
 
     const mainTabs = [
@@ -943,7 +1027,6 @@
     }
 
     function renderQualificationBlock() {
-        // HTML blok kualifikasi untuk ditempel di bagian bawah formulir
         return `<div class="qualification-list">
                     <div class="qualification-title"><i class="fas fa-chart-simple"></i> Kualifikasi Penilaian Peserta Pelatihan</div>
                     <div class="qualification-items">
@@ -956,6 +1039,14 @@
                 </div>`;
     }
 
+    // Custom ordering for sikap_perilaku nested: Pengampu Materi (5), Coach (8), Mentor (7), Penyelenggara (6)
+    function getOrderedNestedForms(parentKey) {
+        if (parentKey !== "sikap_perilaku") return formsMaster.filter(f => f.parent === parentKey);
+        const targetOrderIds = [5, 8, 7, 6];
+        const filtered = formsMaster.filter(f => f.parent === "sikap_perilaku");
+        return targetOrderIds.map(id => filtered.find(f => f.id === id)).filter(f => f);
+    }
+
     function renderNestedAndForm() {
         const nestedDiv = document.getElementById("nestedArea");
         const formDiv = document.getElementById("formRenderArea");
@@ -963,22 +1054,40 @@
         if (!activeMainTab) {
             nestedDiv.innerHTML = "";
             formDiv.innerHTML = `<div class="empty-state">
-                <i class="fas fa-folder-open"></i>
+                <i class="fas fa-chart-line"></i>
                 <p>Silahkan Bapak/Ibu mengisi formulir penilaian berdasarkan kategori diatas dengan kualifikasi penilaian sebagai berikut:</p>
-                <div class="qualification-placeholder">
-                    <div class="qualification-items" style="margin-top: 12px;">
-                        <div class="qual-item"><span class="qual-range">90,01 - 100</span><span class="qual-label">Sangat Memuaskan</span></div>
-                        <div class="qual-item"><span class="qual-range">80,01 - 90,00</span><span class="qual-label">Memuaskan</span></div>
-                        <div class="qual-item"><span class="qual-range">70,01 - 80,00</span><span class="qual-label">Baik</span></div>
-                        <div class="qual-item"><span class="qual-range">60,01 - 70,00</span><span class="qual-label">Kurang Baik</span></div>
-                        <div class="qual-item"><span class="qual-range">≤ 60</span><span class="qual-label">Tidak Memenuhi Kualifikasi</span></div>
+                <div class="qualification-interactive">
+                    <div class="qualification-title">
+                        <i class="fas fa-award"></i> Kualifikasi Penilaian Peserta Pelatihan
+                    </div>
+                    <div class="qualification-items-interactive">
+                        <div class="qual-card-interactive">
+                            <div class="qual-range-big">90,01 - 100</div>
+                            <div class="qual-label-big">Sangat Memuaskan</div>
+                        </div>
+                        <div class="qual-card-interactive">
+                            <div class="qual-range-big">80,01 - 90,00</div>
+                            <div class="qual-label-big">Memuaskan</div>
+                        </div>
+                        <div class="qual-card-interactive">
+                            <div class="qual-range-big">70,01 - 80,00</div>
+                            <div class="qual-label-big">Baik</div>
+                        </div>
+                        <div class="qual-card-interactive">
+                            <div class="qual-range-big">60,01 - 70,00</div>
+                            <div class="qual-label-big">Kurang Baik</div>
+                        </div>
+                        <div class="qual-card-interactive">
+                            <div class="qual-range-big">≤ 60</div>
+                            <div class="qual-label-big">Tidak Memenuhi Kualifikasi</div>
+                        </div>
                     </div>
                 </div>
             </div>`;
             return;
         }
         
-        let formsToShow = formsMaster.filter(f => f.parent === activeMainTab);
+        let formsToShow = getOrderedNestedForms(activeMainTab);
         if (formsToShow.length === 0) {
             nestedDiv.innerHTML = "";
             formDiv.innerHTML = `<div class="empty-state"><i class="fas fa-info-circle"></i><p>Tidak ada formulir untuk kategori ini</p></div>`;
@@ -990,8 +1099,17 @@
         if (needNested) {
             let nestedHtml = `<div class="nested-tabs">`;
             formsToShow.forEach(form => {
+                // Untuk tombol, tampilkan title (Perencanaan Aksi Perubahan, Implementasi Aksi Perubahan, atau role untuk sikap_perilaku)
+                let buttonLabel;
+                if (activeMainTab === "aksi_perubahan") {
+                    // Untuk aksi_perubahan, gunakan title sebagai label tombol
+                    buttonLabel = form.title;
+                } else {
+                    // Untuk sikap_perilaku, gunakan role sebagai label tombol
+                    buttonLabel = form.role;
+                }
                 const isActive = (activeNestedId === form.id);
-                nestedHtml += `<button class="nested-btn ${isActive ? 'active-nested' : ''}" data-id="${form.id}"><i class="fas fa-caret-right"></i> ${form.title}</button>`;
+                nestedHtml += `<button class="nested-btn ${isActive ? 'active-nested' : ''}" data-id="${form.id}"><i class="fas fa-caret-right"></i> ${buttonLabel}</button>`;
             });
             nestedHtml += `</div>`;
             nestedDiv.innerHTML = nestedHtml;
@@ -1017,6 +1135,7 @@
 
     function renderDynamicForm(form) {
         const container = document.getElementById("formRenderArea");
+        // Judul form menggunakan title dan role di badge
         let html = `<div class="form-card">
             <div class="form-title">${form.title} <span class="badge-role">${form.role}</span></div>
             <div class="form-row">
@@ -1030,7 +1149,6 @@
             html += `<div class="score-item"><label>${field.label}</label><input type="number" step="0.1" min="0" max="100" placeholder="0–100" id="${fid}"></div>`;
         });
         html += `</div><div class="btn-wrapper"><button class="submit-btn" onclick="submitFormData(${form.id})"><i class="fas fa-save"></i> Simpan Penilaian</button></div>`;
-        // Tambahkan blok kualifikasi nilai di dalam form-card sebelum ditutup
         html += renderQualificationBlock();
         html += `</div>`;
         container.innerHTML = html;
