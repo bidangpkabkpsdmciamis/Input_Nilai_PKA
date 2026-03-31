@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>E-Penilaian PKA 2026 | BKPSDM Ciamis</title>
+    <title>SP3KA | BKPSDM Ciamis</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -367,6 +367,61 @@
             justify-content: center;
         }
 
+        /* Qualification List Styles - Vertical List Below Form */
+        .qualification-list {
+            margin-top: 2rem;
+            padding: 1.25rem 1.5rem;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .qualification-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-left: 3px solid var(--accent);
+            padding-left: 12px;
+        }
+
+        .qualification-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .qual-item {
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: 0.85rem;
+            padding: 5px 8px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .qual-range {
+            font-weight: 700;
+            min-width: 140px;
+            color: var(--accent-dark);
+            background: rgba(182, 139, 64, 0.12);
+            padding: 4px 12px;
+            border-radius: 30px;
+            display: inline-block;
+        }
+
+        .qual-label {
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
         /* Note before footer */
         .data-note {
             text-align: center;
@@ -689,6 +744,20 @@
             margin-bottom: 1rem;
             opacity: 0.7;
         }
+        
+        .empty-state p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .empty-state .qualification-placeholder {
+            margin-top: 1.2rem;
+            text-align: left;
+            display: inline-block;
+            background: rgba(0,0,0,0.03);
+            padding: 0.8rem 1.2rem;
+            border-radius: 20px;
+        }
 
         @media (max-width: 850px) {
             .app-container { padding: 1rem; }
@@ -701,6 +770,7 @@
             .map-icon-wrapper { justify-content: center; }
             .map-address-detail, .map-coord-badge, .map-link-hint { margin-left: 0; text-align: center; }
             .map-coord-badge { justify-content: center; }
+            .qual-range { min-width: 120px; }
         }
 
         @media (max-width: 600px) {
@@ -736,7 +806,16 @@
         <div id="formRenderArea">
             <div class="empty-state">
                 <i class="fas fa-folder-open"></i>
-                <p>Pilih kategori penilaian di atas untuk mulai mengisi formulir</p>
+                <p>Silahkan Bapak/Ibu mengisi formulir penilaian berdasarkan kategori diatas dengan kualifikasi penilaian sebagai berikut:</p>
+                <div class="qualification-placeholder">
+                    <div class="qualification-items" style="margin-top: 12px;">
+                        <div class="qual-item"><span class="qual-range">90,01 - 100</span><span class="qual-label">Sangat Memuaskan</span></div>
+                        <div class="qual-item"><span class="qual-range">80,01 - 90,00</span><span class="qual-label">Memuaskan</span></div>
+                        <div class="qual-item"><span class="qual-range">70,01 - 80,00</span><span class="qual-label">Baik</span></div>
+                        <div class="qual-item"><span class="qual-range">60,01 - 70,00</span><span class="qual-label">Kurang Baik</span></div>
+                        <div class="qual-item"><span class="qual-range">≤ 60</span><span class="qual-label">Tidak Memenuhi Kualifikasi</span></div>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -863,13 +942,39 @@
         });
     }
 
+    function renderQualificationBlock() {
+        // HTML blok kualifikasi untuk ditempel di bagian bawah formulir
+        return `<div class="qualification-list">
+                    <div class="qualification-title"><i class="fas fa-chart-simple"></i> Kualifikasi Nilai Penilaian</div>
+                    <div class="qualification-items">
+                        <div class="qual-item"><span class="qual-range">90,01 - 100</span><span class="qual-label">Sangat Memuaskan</span></div>
+                        <div class="qual-item"><span class="qual-range">80,01 - 90,00</span><span class="qual-label">Memuaskan</span></div>
+                        <div class="qual-item"><span class="qual-range">70,01 - 80,00</span><span class="qual-label">Baik</span></div>
+                        <div class="qual-item"><span class="qual-range">60,01 - 70,00</span><span class="qual-label">Kurang Baik</span></div>
+                        <div class="qual-item"><span class="qual-range">≤ 60</span><span class="qual-label">Tidak Memenuhi Kualifikasi</span></div>
+                    </div>
+                </div>`;
+    }
+
     function renderNestedAndForm() {
         const nestedDiv = document.getElementById("nestedArea");
         const formDiv = document.getElementById("formRenderArea");
         
         if (!activeMainTab) {
             nestedDiv.innerHTML = "";
-            formDiv.innerHTML = `<div class="empty-state"><i class="fas fa-folder-open"></i><p>Pilih kategori penilaian di atas untuk mulai mengisi formulir</p></div>`;
+            formDiv.innerHTML = `<div class="empty-state">
+                <i class="fas fa-folder-open"></i>
+                <p>Silahkan Bapak/Ibu mengisi formulir penilaian berdasarkan kategori diatas dengan kualifikasi penilaian sebagai berikut:</p>
+                <div class="qualification-placeholder">
+                    <div class="qualification-items" style="margin-top: 12px;">
+                        <div class="qual-item"><span class="qual-range">90,01 - 100</span><span class="qual-label">Sangat Memuaskan</span></div>
+                        <div class="qual-item"><span class="qual-range">80,01 - 90,00</span><span class="qual-label">Memuaskan</span></div>
+                        <div class="qual-item"><span class="qual-range">70,01 - 80,00</span><span class="qual-label">Baik</span></div>
+                        <div class="qual-item"><span class="qual-range">60,01 - 70,00</span><span class="qual-label">Kurang Baik</span></div>
+                        <div class="qual-item"><span class="qual-range">≤ 60</span><span class="qual-label">Tidak Memenuhi Kualifikasi</span></div>
+                    </div>
+                </div>
+            </div>`;
             return;
         }
         
@@ -924,7 +1029,10 @@
             const fid = `field_${form.id}_${field.col.replace(/\./g, '_')}`;
             html += `<div class="score-item"><label>${field.label}</label><input type="number" step="0.1" min="0" max="100" placeholder="0–100" id="${fid}"></div>`;
         });
-        html += `</div><div class="btn-wrapper"><button class="submit-btn" onclick="submitFormData(${form.id})"><i class="fas fa-save"></i> Simpan Penilaian</button></div></div>`;
+        html += `</div><div class="btn-wrapper"><button class="submit-btn" onclick="submitFormData(${form.id})"><i class="fas fa-save"></i> Simpan Penilaian</button></div>`;
+        // Tambahkan blok kualifikasi nilai di dalam form-card sebelum ditutup
+        html += renderQualificationBlock();
+        html += `</div>`;
         container.innerHTML = html;
         const saved = localStorage.getItem(`namaPenilai_${form.id}_role`);
         if (saved) { let inp = document.getElementById(`namaPenilai_${form.id}`); if(inp) inp.value = saved; }
