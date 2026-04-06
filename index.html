@@ -977,11 +977,49 @@
 <div class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></div>
 
 <script>
-    // Data Peserta (30)
-    const pesertaData = [
-        { NDH: "1", Nama: "ADANG HARTONO, S.Sos., M.M." },{ NDH: "2", Nama: "AGUS SETIADI, S.IP., M.M." },{ NDH: "3", Nama: "ARIE SYAHRIAR MAULANA, S.T." },{ NDH: "4", Nama: "ARIS GUNANTO, S.Pd., M.Pd." },{ NDH: "5", Nama: "ASEP SULAEMAN, S.STP., M.M." },{ NDH: "6", Nama: "BUDI YUDIA WAHYU, S.STP., M.Si." },{ NDH: "7", Nama: "DADAN HARDIANTO, S.Hut., M.P." },{ NDH: "8", Nama: "DEDEN NURHADANA, S.H., M.H." },{ NDH: "9", Nama: "DIAN KUSDIANA, S.IP., M.M." },{ NDH: "10", Nama: "DINI KUSLIANI, S.H., M.Si." },{ NDH: "11", Nama: "EDIS HERDIS, S.Sos., M.M." },{ NDH: "12", Nama: "ERWIN FIRWANSYAH, S.IP., M.Si." },{ NDH: "13", Nama: "ERWIN MOCHAMMAD SYAM, S.IP." },{ NDH: "14", Nama: "FENY SETIAPRIYANA, S.T., M.M." },{ NDH: "15", Nama: "HERDIANA, S.E., M.Si." },{ NDH: "16", Nama: "HERRY SOMANTRI, S.E., M.M." },{ NDH: "17", Nama: "IRFAN HIELMI, S.STP., M.Si." },{ NDH: "18", Nama: "MAR DIYANA YUSUF, S.E., M.M." },{ NDH: "19", Nama: "MOCH. IVAN SAEFUL A., S.KM., M.Si." },{ NDH: "20", Nama: "MOHAMAD FAIZAL RONALD, S.STP., M.M." },{ NDH: "21", Nama: "OHIM ABDUROHIM, S.IP., M.Si." },{ NDH: "22", Nama: "RADEN ARIS SUKMAYANA, S.STP., M.Si." },{ NDH: "23", Nama: "RIFKI ARIFIN, S.H., M.M." },{ NDH: "24", Nama: "RINI VALIANTI, S.T., M.T., M.Sc." },{ NDH: "25", Nama: "SLAMET TAHER, S.ST., M.M." },{ NDH: "26", Nama: "TEDY TRESADI, S.E., M.M." },{ NDH: "27", Nama: "TIGIN ARY GINANJAR, S.STP., M.M." },{ NDH: "28", Nama: "WIDIYA PRANATA, S.STP., M.M." },{ NDH: "29", Nama: "drh. YANTI HERAYANI, M.M." },{ NDH: "30", Nama: "YUDY HENDRIANA, S.IP." }
-    ];
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbwVSYxgIyqmAoVILQ8yPFutuxIWquFH3mWYXRXgy-mcW75dUfNb9X-EdsmIkRbwrDZX/exec";
+    // Data Kelompok & Peserta
+    const kelompokData = {
+        "KETAHANAN PANGAN": [
+            { NDH: "5", Nama: "ASEP SULAEMAN, S.STP., M.M." },
+            { NDH: "7", Nama: "DADAN HARDIANTO, S.Hut., M.P." },
+            { NDH: "13", Nama: "ERWIN MOCHAMMAD SYAM, S.IP." },
+            { NDH: "15", Nama: "HERDIANA, S.E., M.Si." },
+            { NDH: "16", Nama: "HERRY SOMANTRI, S.E., M.M." },
+            { NDH: "18", Nama: "MAR DIYANA YUSUF, S.E., M.M." },
+            { NDH: "30", Nama: "YUDY HENDRIANA, S.IP." }
+        ],
+        "PENDIDIKAN BERMUTU": [
+            { NDH: "1", Nama: "ADANG HARTONO, S.Sos., M.M." },
+            { NDH: "3", Nama: "ARIE SYAHRIAR MAULANA, S.T." },
+            { NDH: "4", Nama: "ARIS GUNANTO, S.Pd., M.Pd." },
+            { NDH: "12", Nama: "ERWIN FIRWANSYAH, S.IP., M.Si." },
+            { NDH: "21", Nama: "OHIM ABDUROHIM, S.IP., M.Si." },
+            { NDH: "23", Nama: "RIFKI ARIFIN, S.H., M.M." },
+            { NDH: "24", Nama: "RINI VALIANTI, S.T., M.T., M.Sc." },
+            { NDH: "26", Nama: "TEDY TRESADI, S.E., M.M." }
+        ],
+        "KESEHATAN BERKUALITAS": [
+            { NDH: "2", Nama: "AGUS SETIADI, S.IP., M.M." },
+            { NDH: "8", Nama: "DEDEN NURHADANA, S.H., M.H." },
+            { NDH: "11", Nama: "EDIS HERDIS, S.Sos., M.M." },
+            { NDH: "19", Nama: "MOCH. IVAN SAEFUL A., S.KM., M.Si." },
+            { NDH: "22", Nama: "RADEN ARIS SUKMAYANA, S.STP., M.Si." },
+            { NDH: "28", Nama: "WIDIYA PRANATA, S.STP., M.M." },
+            { NDH: "29", Nama: "drh. YANTI HERAYANI, M.M." }
+        ],
+        "INVESTASI DAN PERDAGANGAN GLOBAL": [
+            { NDH: "6", Nama: "BUDI YUDIA WAHYU, S.STP., M.Si." },
+            { NDH: "9", Nama: "DIAN KUSDIANA, S.IP., M.M." },
+            { NDH: "10", Nama: "DINI KUSLIANI, S.H., M.Si." },
+            { NDH: "14", Nama: "FENY SETIAPRIYANA, S.T., M.M." },
+            { NDH: "17", Nama: "IRFAN HIELMI, S.STP., M.Si." },
+            { NDH: "20", Nama: "MOHAMAD FAIZAL RONALD, S.STP., M.M." },
+            { NDH: "25", Nama: "SLAMET TAHER, S.ST., M.M." },
+            { NDH: "27", Nama: "TIGIN ARY GINANJAR, S.STP., M.M." }
+        ]
+    };
+
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbziwsBkZLFbbPNoQbFhII_vtPmUIdbxStiNevLiOEXzZX8yXaLmSYeNBhkFiNDrD1GF/exec";
 
     // Master forms - title untuk form utama "Evaluasi Sikap dan Perilaku", role sesuai peran
     const formsMaster = [
@@ -1006,7 +1044,13 @@
     let activeNestedId = null;
     let isLoading = false;
 
-    function getNamaByNdh(ndh) { return pesertaData.find(p => p.NDH === ndh)?.Nama || ""; }
+    function getNamaByNdh(ndh) {
+        for (const group in kelompokData) {
+            const found = kelompokData[group].find(p => p.NDH === ndh);
+            if (found) return found.Nama;
+        }
+        return "";
+    }
 
     function renderMainTabs() {
         const container = document.getElementById("tabContainer");
@@ -1099,13 +1143,10 @@
         if (needNested) {
             let nestedHtml = `<div class="nested-tabs">`;
             formsToShow.forEach(form => {
-                // Untuk tombol, tampilkan title (Perencanaan Aksi Perubahan, Implementasi Aksi Perubahan, atau role untuk sikap_perilaku)
                 let buttonLabel;
                 if (activeMainTab === "aksi_perubahan") {
-                    // Untuk aksi_perubahan, gunakan title sebagai label tombol
                     buttonLabel = form.title;
                 } else {
-                    // Untuk sikap_perilaku, gunakan role sebagai label tombol
                     buttonLabel = form.role;
                 }
                 const isActive = (activeNestedId === form.id);
@@ -1135,43 +1176,95 @@
 
     function renderDynamicForm(form) {
         const container = document.getElementById("formRenderArea");
-        // Judul form menggunakan title dan role di badge
         let html = `<div class="form-card">
             <div class="form-title">${form.title} <span class="badge-role">${form.role}</span></div>
             <div class="form-row">
                 <div class="input-group"><label>Nama ${form.role}</label><input type="text" id="namaPenilai_${form.id}" placeholder="Nama lengkap" value=""></div>
-                <div class="input-group"><label>NDH Peserta</label><select id="ndhSelect_${form.id}" onchange="updateNama(${form.id})"><option value="">-- Pilih NDH --</option>`;
-        pesertaData.forEach(p => { html += `<option value="${p.NDH}">${p.NDH} - ${p.Nama.substring(0, 45)}</option>`; });
-        html += `</select></div><div class="input-group"><label>Nama Peserta</label><input type="text" id="namaPeserta_${form.id}" readonly placeholder="Terisi otomatis"></div></div>
+                <div class="input-group"><label>Kelompok</label><select id="kelompokSelect_${form.id}" onchange="updateKelompok(${form.id})"><option value="">-- Pilih Kelompok --</option>`;
+        
+        // Tambahkan opsi kelompok
+        for (const group in kelompokData) {
+            html += `<option value="${group}">${group}</option>`;
+        }
+        
+        html += `</select></div>
+                <div class="input-group"><label>NDH Peserta</label><select id="ndhSelect_${form.id}" onchange="updateNama(${form.id})" disabled><option value="">-- Pilih Kelompok Terlebih Dahulu --</option></select></div>
+                <div class="input-group"><label>Nama Peserta</label><input type="text" id="namaPeserta_${form.id}" readonly placeholder="Terisi otomatis"></div>
+            </div>
             <div class="score-grid">`;
+        
         form.fields.forEach(field => {
             const fid = `field_${form.id}_${field.col.replace(/\./g, '_')}`;
             html += `<div class="score-item"><label>${field.label}</label><input type="number" step="0.1" min="0" max="100" placeholder="0–100" id="${fid}"></div>`;
         });
+        
         html += `</div><div class="btn-wrapper"><button class="submit-btn" onclick="submitFormData(${form.id})"><i class="fas fa-save"></i> Simpan Penilaian</button></div>`;
         html += renderQualificationBlock();
         html += `</div>`;
         container.innerHTML = html;
+        
+        // Load saved nama penilai
         const saved = localStorage.getItem(`namaPenilai_${form.id}_role`);
-        if (saved) { let inp = document.getElementById(`namaPenilai_${form.id}`); if(inp) inp.value = saved; }
+        if (saved) { 
+            let inp = document.getElementById(`namaPenilai_${form.id}`); 
+            if(inp) inp.value = saved; 
+        }
     }
+
+    window.updateKelompok = function(formId) {
+        const kelompokSelect = document.getElementById(`kelompokSelect_${formId}`);
+        const ndhSelect = document.getElementById(`ndhSelect_${formId}`);
+        const namaPesertaInput = document.getElementById(`namaPeserta_${formId}`);
+        const selectedKelompok = kelompokSelect.value;
+        
+        if (!selectedKelompok) {
+            ndhSelect.innerHTML = '<option value="">-- Pilih Kelompok Terlebih Dahulu --</option>';
+            ndhSelect.disabled = true;
+            if (namaPesertaInput) namaPesertaInput.value = "";
+            return;
+        }
+        
+        // Aktifkan dropdown NDH
+        ndhSelect.disabled = false;
+        ndhSelect.innerHTML = '<option value="">-- Pilih NDH --</option>';
+        
+        // Tambahkan opsi NDH berdasarkan kelompok yang dipilih
+        const anggota = kelompokData[selectedKelompok];
+        if (anggota) {
+            anggota.forEach(anggota => {
+                ndhSelect.innerHTML += `<option value="${anggota.NDH}">${anggota.NDH} - ${anggota.Nama.substring(0, 45)}</option>`;
+            });
+        }
+        
+        // Reset nama peserta
+        if (namaPesertaInput) namaPesertaInput.value = "";
+    };
 
     window.updateNama = function(formId) {
         const ndhSelect = document.getElementById(`ndhSelect_${formId}`);
         const namaInput = document.getElementById(`namaPeserta_${formId}`);
-        if (ndhSelect && ndhSelect.value) namaInput.value = getNamaByNdh(ndhSelect.value);
-        else if (namaInput) namaInput.value = "";
+        if (ndhSelect && ndhSelect.value) {
+            namaInput.value = getNamaByNdh(ndhSelect.value);
+        } else if (namaInput) {
+            namaInput.value = "";
+        }
     };
 
     window.submitFormData = async function(formId) {
         if (isLoading) { showToast("Proses sedang berjalan..."); return; }
         const form = formsMaster.find(f => f.id === formId);
         if (!form) return;
+        
         const namaPenilai = document.getElementById(`namaPenilai_${formId}`)?.value.trim();
         if (!namaPenilai) { alert(`Nama ${form.role} wajib diisi`); return; }
+        
+        const kelompok = document.getElementById(`kelompokSelect_${formId}`)?.value;
+        if (!kelompok) { alert("Pilih kelompok peserta terlebih dahulu"); return; }
+        
         const ndh = document.getElementById(`ndhSelect_${formId}`)?.value;
         const namaPeserta = document.getElementById(`namaPeserta_${formId}`)?.value;
         if (!ndh || !namaPeserta) { alert("Pilih NDH peserta terlebih dahulu"); return; }
+        
         let scores = {};
         for (let field of form.fields) {
             const inp = document.getElementById(`field_${formId}_${field.col.replace(/\./g, '_')}`);
@@ -1181,19 +1274,52 @@
             if (isNaN(num) || num < 0 || num > 100) { alert(`Nilai harus angka 0–100`); inp?.focus(); return; }
             scores[field.col] = num;
         }
+        
         isLoading = true;
         const btn = document.querySelector(`.submit-btn`);
         const originalText = btn?.innerHTML;
         if (btn) { btn.innerHTML = `<i class="fas fa-spinner fa-pulse"></i> Menyimpan...`; btn.disabled = true; }
+        
         try {
-            await fetch(GAS_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ formId, role: form.role, namaPenilai, ndh, namaPeserta, scores, timestamp: new Date().toISOString() }) });
+            await fetch(GAS_URL, { 
+                method: "POST", 
+                mode: "no-cors", 
+                headers: { "Content-Type": "application/json" }, 
+                body: JSON.stringify({ 
+                    formId, 
+                    role: form.role, 
+                    namaPenilai, 
+                    kelompok,
+                    ndh, 
+                    namaPeserta, 
+                    scores, 
+                    timestamp: new Date().toISOString() 
+                }) 
+            });
             localStorage.setItem(`namaPenilai_${formId}_role`, namaPenilai);
             showToast(`✓ Data tersimpan: ${form.title} - ${namaPeserta}`);
-            form.fields.forEach(f => { let el = document.getElementById(`field_${formId}_${f.col.replace(/\./g, '_')}`); if (el) el.value = ""; });
-            let ndhEl = document.getElementById(`ndhSelect_${formId}`); if (ndhEl) ndhEl.value = "";
-            let namaEl = document.getElementById(`namaPeserta_${formId}`); if (namaEl) namaEl.value = "";
-        } catch (err) { showToast(`Gagal menyimpan: ${err.message}`); }
-        finally { isLoading = false; if (btn) { btn.innerHTML = originalText; btn.disabled = false; } }
+            
+            // Reset form setelah sukses
+            form.fields.forEach(f => { 
+                let el = document.getElementById(`field_${formId}_${f.col.replace(/\./g, '_')}`); 
+                if (el) el.value = ""; 
+            });
+            let kelompokEl = document.getElementById(`kelompokSelect_${formId}`); 
+            if (kelompokEl) kelompokEl.value = "";
+            let ndhEl = document.getElementById(`ndhSelect_${formId}`); 
+            if (ndhEl) {
+                ndhEl.innerHTML = '<option value="">-- Pilih Kelompok Terlebih Dahulu --</option>';
+                ndhEl.disabled = true;
+            }
+            let namaEl = document.getElementById(`namaPeserta_${formId}`); 
+            if (namaEl) namaEl.value = "";
+            
+        } catch (err) { 
+            showToast(`Gagal menyimpan: ${err.message}`); 
+        } finally { 
+            isLoading = false; 
+            if (btn) { btn.innerHTML = originalText; btn.disabled = false; } 
+        }
     };
 
     function showToast(msg) {
