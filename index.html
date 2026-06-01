@@ -287,6 +287,18 @@
             font-size: 0.8rem;
         }
 
+        .input-group label .required {
+            color: #e53e3e;
+            font-size: 0.7rem;
+            font-weight: normal;
+        }
+
+        .input-group label .optional {
+            color: #94a3b8;
+            font-size: 0.7rem;
+            font-weight: normal;
+        }
+
         select, input:not([type="submit"]) {
             width: 100%;
             padding: 0.75rem 1rem;
@@ -330,6 +342,12 @@
             margin-bottom: 8px;
             color: var(--primary);
             font-size: 0.8rem;
+        }
+
+        .score-item label .optional {
+            color: #94a3b8;
+            font-size: 0.7rem;
+            font-weight: normal;
         }
 
         .score-item input {
@@ -905,7 +923,7 @@
         
         <!-- Note before footer -->
         <div class="data-note">
-            <i class="fas fa-cloud-upload-alt"></i> Data tersimpan langsung ke Google Sheet terintegrasi • Sistem Penilaian Peserta PKA
+            <i class="fas fa-cloud-upload-alt"></i> Data tersimpan langsung ke Google Sheet terintegrasi • <i class="fas fa-info-circle"></i> Nilai bersifat opsional, dapat diisi sebagian
         </div>
     </div>
 
@@ -969,7 +987,7 @@
 
             <!-- Copyright -->
             <div class="footer-bottom">
-                © 2026 <a href="#">PKA BKPSDM Kabupaten Ciamis</a>. All rights reserved. Versi 2.0
+                © 2026 <a href="#">PKA BKPSDM Kabupaten Ciamis</a>. All rights reserved. Versi 2.0 - <i class="fas fa-edit"></i> Nilai bersifat fleksibel
             </div>
         </div>
     </footer>
@@ -1179,8 +1197,8 @@
         let html = `<div class="form-card">
             <div class="form-title">${form.title} <span class="badge-role">${form.role}</span></div>
             <div class="form-row">
-                <div class="input-group"><label>Nama ${form.role}</label><input type="text" id="namaPenilai_${form.id}" placeholder="Nama lengkap" value=""></div>
-                <div class="input-group"><label>Kelompok</label><select id="kelompokSelect_${form.id}" onchange="updateKelompok(${form.id})"><option value="">-- Pilih Kelompok --</option>`;
+                <div class="input-group"><label>Nama ${form.role} <span class="required">(wajib)</span></label><input type="text" id="namaPenilai_${form.id}" placeholder="Nama lengkap" value=""></div>
+                <div class="input-group"><label>Kelompok <span class="required">(wajib)</span></label><select id="kelompokSelect_${form.id}" onchange="updateKelompok(${form.id})"><option value="">-- Pilih Kelompok --</option>`;
         
         // Tambahkan opsi kelompok
         for (const group in kelompokData) {
@@ -1188,14 +1206,14 @@
         }
         
         html += `</select></div>
-                <div class="input-group"><label>NDH Peserta</label><select id="ndhSelect_${form.id}" onchange="updateNama(${form.id})" disabled><option value="">-- Pilih Kelompok Terlebih Dahulu --</option></select></div>
+                <div class="input-group"><label>NDH Peserta <span class="required">(wajib)</span></label><select id="ndhSelect_${form.id}" onchange="updateNama(${form.id})" disabled><option value="">-- Pilih Kelompok Terlebih Dahulu --</option></select></div>
                 <div class="input-group"><label>Nama Peserta</label><input type="text" id="namaPeserta_${form.id}" readonly placeholder="Terisi otomatis"></div>
             </div>
             <div class="score-grid">`;
         
         form.fields.forEach(field => {
             const fid = `field_${form.id}_${field.col.replace(/\./g, '_')}`;
-            html += `<div class="score-item"><label>${field.label}</label><input type="number" step="0.1" min="0" max="100" placeholder="0–100" id="${fid}"></div>`;
+            html += `<div class="score-item"><label>${field.label} <span class="optional">(opsional)</span></label><input type="number" step="0.1" min="0" max="100" placeholder="0–100" id="${fid}"></div>`;
         });
         
         html += `</div><div class="btn-wrapper"><button class="submit-btn" onclick="submitFormData(${form.id})"><i class="fas fa-save"></i> Simpan Penilaian</button></div>`;
@@ -1255,24 +1273,62 @@
         const form = formsMaster.find(f => f.id === formId);
         if (!form) return;
         
+        // WAJIB: Nama penilai
         const namaPenilai = document.getElementById(`namaPenilai_${formId}`)?.value.trim();
-        if (!namaPenilai) { alert(`Nama ${form.role} wajib diisi`); return; }
+        if (!namaPenilai) { 
+            showToast("⚠️ Nama penilai wajib diisi"); 
+            return; 
+        }
         
+        // WAJIB: Kelompok
         const kelompok = document.getElementById(`kelompokSelect_${formId}`)?.value;
-        if (!kelompok) { alert("Pilih kelompok peserta terlebih dahulu"); return; }
+        if (!kelompok) { 
+            showToast("⚠️ Kelompok wajib dipilih"); 
+            return; 
+        }
         
+        // WAJIB: NDH
         const ndh = document.getElementById(`ndhSelect_${formId}`)?.value;
-        const namaPeserta = document.getElementById(`namaPeserta_${formId}`)?.value;
-        if (!ndh || !namaPeserta) { alert("Pilih NDH peserta terlebih dahulu"); return; }
+        if (!ndh) { 
+            showToast("⚠️ NDH peserta wajib dipilih"); 
+            return; 
+        }
         
+        const namaPeserta = document.getElementById(`namaPeserta_${formId}`)?.value;
+        if (!namaPeserta) {
+            showToast("⚠️ Nama peserta tidak valid, silakan pilih NDH yang benar");
+            return;
+        }
+        
+        // Kumpulkan nilai yang diisi saja (opsional)
         let scores = {};
+        let hasValues = false;
+        
         for (let field of form.fields) {
-            const inp = document.getElementById(`field_${formId}_${field.col.replace(/\./g, '_')}`);
+            const inp = document.getElementById(`field_${form.id}_${field.col.replace(/\./g, '_')}`);
             let val = inp?.value.trim();
-            if (val === "") { alert(`Nilai untuk "${field.label}" belum diisi`); inp?.focus(); return; }
-            let num = parseFloat(val);
-            if (isNaN(num) || num < 0 || num > 100) { alert(`Nilai harus angka 0–100`); inp?.focus(); return; }
-            scores[field.col] = num;
+            
+            if (val !== "") {
+                let num = parseFloat(val);
+                if (isNaN(num)) {
+                    showToast(`❌ Nilai untuk "${field.label}" harus berupa angka`);
+                    inp?.focus();
+                    return;
+                }
+                if (num < 0 || num > 100) {
+                    showToast(`❌ Nilai untuk "${field.label}" harus antara 0-100`);
+                    inp?.focus();
+                    return;
+                }
+                scores[field.col] = num;
+                hasValues = true;
+            }
+        }
+        
+        // Jika tidak ada nilai sama sekali, beri konfirmasi
+        if (!hasValues) {
+            const confirmSave = confirm("Tidak ada nilai yang diisi. Apakah Anda tetap ingin menyimpan data (hanya data peserta dan penilai)?");
+            if (!confirmSave) return;
         }
         
         isLoading = true;
@@ -1296,23 +1352,20 @@
                     timestamp: new Date().toISOString() 
                 }) 
             });
-            localStorage.setItem(`namaPenilai_${formId}_role`, namaPenilai);
-            showToast(`✓ Data tersimpan: ${form.title} - ${namaPeserta}`);
+            localStorage.setItem(`namaPenilai_${form.id}_role`, namaPenilai);
             
-            // Reset form setelah sukses
+            const nilaiCount = Object.keys(scores).length;
+            if (nilaiCount > 0) {
+                showToast(`✓ Data tersimpan: ${form.title} - ${namaPeserta} (${nilaiCount} nilai terisi)`);
+            } else {
+                showToast(`✓ Data tersimpan: ${form.title} - ${namaPeserta} (tanpa nilai)`);
+            }
+            
+            // Reset hanya field nilai, biarkan identitas peserta tetap terisi untuk input berikutnya
             form.fields.forEach(f => { 
-                let el = document.getElementById(`field_${formId}_${f.col.replace(/\./g, '_')}`); 
+                let el = document.getElementById(`field_${form.id}_${f.col.replace(/\./g, '_')}`); 
                 if (el) el.value = ""; 
             });
-            let kelompokEl = document.getElementById(`kelompokSelect_${formId}`); 
-            if (kelompokEl) kelompokEl.value = "";
-            let ndhEl = document.getElementById(`ndhSelect_${formId}`); 
-            if (ndhEl) {
-                ndhEl.innerHTML = '<option value="">-- Pilih Kelompok Terlebih Dahulu --</option>';
-                ndhEl.disabled = true;
-            }
-            let namaEl = document.getElementById(`namaPeserta_${formId}`); 
-            if (namaEl) namaEl.value = "";
             
         } catch (err) { 
             showToast(`Gagal menyimpan: ${err.message}`); 
