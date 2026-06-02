@@ -32,7 +32,6 @@
             min-height: 100vh;
         }
 
-        /* Unified Background - Updated with new image */
         .unified-bg {
             background-image: url('https://i.ibb.co.com/tTHsc01C/Untitled-design.png');
             background-size: cover;
@@ -62,7 +61,6 @@
             z-index: 2;
         }
 
-        /* Header */
         .hero-header {
             position: relative;
             border-radius: 24px;
@@ -142,7 +140,6 @@
             font-weight: 400;
         }
 
-        /* Main Tabs */
         .tabs {
             display: flex;
             flex-wrap: wrap;
@@ -185,7 +182,6 @@
             transform: translateY(-1px);
         }
 
-        /* Nested Tabs */
         .nested-tabs {
             display: flex;
             flex-wrap: wrap;
@@ -226,7 +222,6 @@
             transform: translateY(-1px);
         }
 
-        /* Form Card */
         .form-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(8px);
@@ -293,12 +288,6 @@
             font-weight: normal;
         }
 
-        .input-group label .optional {
-            color: #94a3b8;
-            font-size: 0.7rem;
-            font-weight: normal;
-        }
-
         select, input:not([type="submit"]) {
             width: 100%;
             padding: 0.75rem 1rem;
@@ -344,12 +333,6 @@
             font-size: 0.8rem;
         }
 
-        .score-item label .optional {
-            color: #94a3b8;
-            font-size: 0.7rem;
-            font-weight: normal;
-        }
-
         .score-item input {
             background: white;
             border-radius: 12px;
@@ -385,7 +368,6 @@
             justify-content: center;
         }
 
-        /* Qualification List Styles - Enhanced Interactive Version for Initial State */
         .qualification-interactive {
             margin-top: 0;
             padding: 1.5rem;
@@ -457,7 +439,6 @@
             display: block;
         }
         
-        /* Regular qualification list (inside form) remains unchanged */
         .qualification-list {
             margin-top: 2rem;
             padding: 1.25rem 1.5rem;
@@ -512,7 +493,6 @@
             color: var(--text-dark);
         }
 
-        /* Note before footer */
         .data-note {
             text-align: center;
             padding: 1rem 1.5rem;
@@ -530,7 +510,6 @@
             margin-right: 8px;
         }
 
-        /* Toast */
         .toast-msg {
             position: fixed;
             bottom: 28px;
@@ -552,20 +531,6 @@
             to { transform: translateX(0); opacity: 1; }
         }
 
-        .loading {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 0.6s linear infinite;
-            margin-left: 8px;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* Footer - Two Column Layout with Map Icon */
         .footer {
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(8px);
@@ -588,7 +553,6 @@
             margin-bottom: 40px;
         }
 
-        /* Left Column - Map Location with Icon */
         .footer-map {
             text-align: left;
         }
@@ -693,11 +657,6 @@
             color: #94a3b8;
         }
 
-        .map-link-hint i {
-            font-size: 0.65rem;
-        }
-
-        /* Right Column - Contact Section */
         .footer-contact {
             text-align: left;
         }
@@ -869,7 +828,6 @@
 <body>
 <div class="unified-bg">
     <div class="app-container">
-        <!-- Header -->
         <div class="hero-header">
             <img class="hero-bg" src="https://i.ibb.co.com/zTVPDtDW/Chat-GPT-Image-22-Mar-2026-19-31-08.png" alt="BKPSDM Header Background">
             <div class="header-content">
@@ -884,7 +842,6 @@
             </div>
         </div>
 
-        <!-- Main Tabs -->
         <div class="tabs" id="tabContainer"></div>
         <div id="nestedArea"></div>
         <div id="formRenderArea">
@@ -921,17 +878,14 @@
             </div>
         </div>
         
-        <!-- Note before footer -->
         <div class="data-note">
             <i class="fas fa-cloud-upload-alt"></i> Data tersimpan langsung ke Google Sheet terintegrasi • <i class="fas fa-info-circle"></i> Nilai bersifat opsional, dapat diisi sebagian
         </div>
     </div>
 
-    <!-- Footer with Two Column Layout: Left = Map Icon, Right = Contact -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-grid">
-                <!-- Left Column - Map Location with Icon -->
                 <div class="footer-map">
                     <h4><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i> Lokasi Kantor</h4>
                     <a href="https://www.google.com/maps?q=-7.319604,108.343875" target="_blank" rel="noopener noreferrer" class="map-card">
@@ -955,7 +909,6 @@
                     </a>
                 </div>
 
-                <!-- Right Column - Contact Information (Updated) -->
                 <div class="footer-contact">
                     <h4><i class="fas fa-headset" style="margin-right: 8px;"></i> Kontak Kami</h4>
                     <div class="contact-item">
@@ -977,7 +930,6 @@
                 </div>
             </div>
 
-            <!-- Partner Logos -->
             <div class="partner-logos">
                 <img src="https://i.ibb.co.com/tMnbFSr5/Lambang-Kabupaten-Ciamis.png" alt="Lambang Ciamis" class="partner-logo">
                 <img src="https://i.ibb.co.com/JWw8qHmM/logo-bkpsdm.png" alt="BKPSDM" class="partner-logo">
@@ -985,7 +937,6 @@
                 <img src="https://i.ibb.co.com/99NKJGNg/bangga.png" alt="Bangga Melayani" class="partner-logo">
             </div>
 
-            <!-- Copyright -->
             <div class="footer-bottom">
                 © 2026 <a href="#">PKA BKPSDM Kabupaten Ciamis</a>. All rights reserved. Versi 2.0 - <i class="fas fa-edit"></i> Nilai bersifat fleksibel
             </div>
@@ -995,7 +946,6 @@
 <div class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></div>
 
 <script>
-    // Data Kelompok & Peserta
     const kelompokData = {
         "1 (KETAHANAN PANGAN)": [
             { NDH: "5", Nama: "ASEP SULAEMAN, S.STP., M.M." },
@@ -1006,7 +956,7 @@
             { NDH: "18", Nama: "MAR DIYANA YUSUF, S.E., M.M." },
             { NDH: "30", Nama: "YUDY HENDRIANA, S.IP." }
         ],
-           "2 (KESEHATAN BERKUALITAS)": [
+        "2 (KESEHATAN BERKUALITAS)": [
             { NDH: "2", Nama: "AGUS SETIADI, S.IP., M.M." },
             { NDH: "8", Nama: "DEDEN NURHADANA, S.H., M.H." },
             { NDH: "11", Nama: "EDIS HERDIS, S.Sos., M.M." },
@@ -1039,7 +989,14 @@
 
     const GAS_URL = "https://script.google.com/macros/s/AKfycbziwsBkZLFbbPNoQbFhII_vtPmUIdbxStiNevLiOEXzZX8yXaLmSYeNBhkFiNDrD1GF/exec";
 
-    // Master forms - title untuk form utama "Evaluasi Sikap dan Perilaku", role sesuai peran
+    // Daftar nama penguji untuk dropdown
+    const daftarPenguji = [
+        "Dr. H. ANDANG FIRMAN TRIYADI, M.T.",
+        "Drs. H. JEJEN HENDRA PERMANA, M.Si.",
+        "Rd. SRI UNTARI, S.Pt., M.P.",
+        "Dr. JONI DAWUD, DEA"
+    ];
+
     const formsMaster = [
         { id: 1, title: "Evaluasi Akademik", role: "Penguji", parent: "akademik", fields: [{ label: "Pemahaman dan identifikasi isu-isu aktual Agenda I, II, III (Esai-Penugasan Individu)", col: "1C" },{ label: "Quiz Smart Governance", col: "1D" },{ label: "Kualitas substansi bahan tayang dan sharing session (Penugasan Kelompok)", col: "1E" },{ label: "Evaluasi substansi", col: "1F" }] },
         { id: 2, title: "Evaluasi STULA", role: "Pendamping", parent: "stula", fields: [{ label: "Kualitas dokumentasi lesson learnt studi lapangan yang didukung dengan data dan informasi yang relevan (Penugasan Kelompok)", col: "2C" },{ label: "Kualitas lesson learnt adopsi & adaptasi hasil studi lapangan sesuai agenda pembelajaran (Penugasan Individu) ", col: "2D" }] },
@@ -1101,7 +1058,6 @@
                 </div>`;
     }
 
-    // Custom ordering for sikap_perilaku nested: Pengampu Materi (5), Coach (8), Mentor (7), Penyelenggara (6)
     function getOrderedNestedForms(parentKey) {
         if (parentKey !== "sikap_perilaku") return formsMaster.filter(f => f.parent === parentKey);
         const targetOrderIds = [5, 8, 7, 6];
@@ -1194,13 +1150,27 @@
 
     function renderDynamicForm(form) {
         const container = document.getElementById("formRenderArea");
+        
+        // Tentukan apakah form ini menggunakan dropdown untuk nama penilai (form dengan role Penguji pada aksi_perubahan)
+        const useDropdown = (form.parent === "aksi_perubahan" && form.role === "Penguji");
+        
+        let namaPenilaiHtml = '';
+        if (useDropdown) {
+            namaPenilaiHtml = `<select id="namaPenilai_${form.id}"><option value="">-- Pilih Nama Penguji --</option>`;
+            daftarPenguji.forEach(nama => {
+                namaPenilaiHtml += `<option value="${nama}">${nama}</option>`;
+            });
+            namaPenilaiHtml += `</select>`;
+        } else {
+            namaPenilaiHtml = `<input type="text" id="namaPenilai_${form.id}" placeholder="Nama lengkap" value="">`;
+        }
+        
         let html = `<div class="form-card">
             <div class="form-title">${form.title} <span class="badge-role">${form.role}</span></div>
             <div class="form-row">
-                <div class="input-group"><label>Nama ${form.role} <span class="required">(wajib)</span></label><input type="text" id="namaPenilai_${form.id}" placeholder="Nama lengkap" value=""></div>
+                <div class="input-group"><label>Nama ${form.role} <span class="required">(wajib)</span></label>${namaPenilaiHtml}</div>
                 <div class="input-group"><label>Kelompok <span class="required">(wajib)</span></label><select id="kelompokSelect_${form.id}" onchange="updateKelompok(${form.id})"><option value="">-- Pilih Kelompok --</option>`;
         
-        // Tambahkan opsi kelompok
         for (const group in kelompokData) {
             html += `<option value="${group}">${group}</option>`;
         }
@@ -1213,19 +1183,28 @@
         
         form.fields.forEach(field => {
             const fid = `field_${form.id}_${field.col.replace(/\./g, '_')}`;
-            html += `<div class="score-item"><label>${field.label} <span class="optional">(opsional)</span></label><input type="number" step="0.1" min="0" max="100" placeholder="0–100" id="${fid}"></div>`;
+            html += `<div class="score-item"><label>${field.label}</label><input type="number" step="0.1" min="0" max="100" placeholder="0–100" id="${fid}"></div>`;
         });
         
         html += `</div><div class="btn-wrapper"><button class="submit-btn" onclick="submitFormData(${form.id})"><i class="fas fa-save"></i> Simpan Penilaian</button></div>`;
-        html += renderQualificationBlock();
+        
+        if (form.parent !== "aksi_perubahan") {
+            html += renderQualificationBlock();
+        }
+        
         html += `</div>`;
         container.innerHTML = html;
         
         // Load saved nama penilai
         const saved = localStorage.getItem(`namaPenilai_${form.id}_role`);
         if (saved) { 
-            let inp = document.getElementById(`namaPenilai_${form.id}`); 
-            if(inp) inp.value = saved; 
+            if (useDropdown) {
+                let selectEl = document.getElementById(`namaPenilai_${form.id}`); 
+                if(selectEl) selectEl.value = saved;
+            } else {
+                let inp = document.getElementById(`namaPenilai_${form.id}`); 
+                if(inp) inp.value = saved;
+            }
         }
     }
 
@@ -1242,11 +1221,9 @@
             return;
         }
         
-        // Aktifkan dropdown NDH
         ndhSelect.disabled = false;
         ndhSelect.innerHTML = '<option value="">-- Pilih NDH --</option>';
         
-        // Tambahkan opsi NDH berdasarkan kelompok yang dipilih
         const anggota = kelompokData[selectedKelompok];
         if (anggota) {
             anggota.forEach(anggota => {
@@ -1254,7 +1231,6 @@
             });
         }
         
-        // Reset nama peserta
         if (namaPesertaInput) namaPesertaInput.value = "";
     };
 
@@ -1273,21 +1249,30 @@
         const form = formsMaster.find(f => f.id === formId);
         if (!form) return;
         
-        // WAJIB: Nama penilai
-        const namaPenilai = document.getElementById(`namaPenilai_${formId}`)?.value.trim();
-        if (!namaPenilai) { 
-            showToast("⚠️ Nama penilai wajib diisi"); 
-            return; 
+        const useDropdown = (form.parent === "aksi_perubahan" && form.role === "Penguji");
+        let namaPenilai;
+        
+        if (useDropdown) {
+            const selectEl = document.getElementById(`namaPenilai_${formId}`);
+            namaPenilai = selectEl?.value;
+            if (!namaPenilai) { 
+                showToast("⚠️ Nama penguji wajib dipilih"); 
+                return; 
+            }
+        } else {
+            namaPenilai = document.getElementById(`namaPenilai_${formId}`)?.value.trim();
+            if (!namaPenilai) { 
+                showToast("⚠️ Nama penilai wajib diisi"); 
+                return; 
+            }
         }
         
-        // WAJIB: Kelompok
         const kelompok = document.getElementById(`kelompokSelect_${formId}`)?.value;
         if (!kelompok) { 
             showToast("⚠️ Kelompok wajib dipilih"); 
             return; 
         }
         
-        // WAJIB: NDH
         const ndh = document.getElementById(`ndhSelect_${formId}`)?.value;
         if (!ndh) { 
             showToast("⚠️ NDH peserta wajib dipilih"); 
@@ -1300,7 +1285,6 @@
             return;
         }
         
-        // Kumpulkan nilai yang diisi saja (opsional)
         let scores = {};
         let hasValues = false;
         
@@ -1325,7 +1309,6 @@
             }
         }
         
-        // Jika tidak ada nilai sama sekali, beri konfirmasi
         if (!hasValues) {
             const confirmSave = confirm("Tidak ada nilai yang diisi. Apakah Anda tetap ingin menyimpan data (hanya data peserta dan penilai)?");
             if (!confirmSave) return;
@@ -1361,7 +1344,6 @@
                 showToast(`✓ Data tersimpan: ${form.title} - ${namaPeserta} (tanpa nilai)`);
             }
             
-            // Reset hanya field nilai, biarkan identitas peserta tetap terisi untuk input berikutnya
             form.fields.forEach(f => { 
                 let el = document.getElementById(`field_${form.id}_${f.col.replace(/\./g, '_')}`); 
                 if (el) el.value = ""; 
