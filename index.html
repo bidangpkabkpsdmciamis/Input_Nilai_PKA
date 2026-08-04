@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -308,7 +309,7 @@
 
         .score-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, min-width(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 1rem;
             margin-top: 0.5rem;
         }
@@ -344,17 +345,6 @@
             background: white;
             border-radius: 12px;
             padding: 0.6rem 0.9rem;
-        }
-
-        .score-item .average-badge {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            margin-left: 8px;
-            font-weight: 600;
         }
 
         button.submit-btn {
@@ -827,16 +817,6 @@
             font-size: 0.8rem;
             color: #e65100;
         }
-
-        .info-badge {
-            background: #e3f2fd;
-            border-left: 4px solid #2196f3;
-            padding: 12px 16px;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-            font-size: 0.8rem;
-            color: #0d47a1;
-        }
         
         @media (max-width: 850px) {
             .app-container { padding: 1rem; }
@@ -1025,8 +1005,9 @@
         ]
     };
 
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbz6oTmdSmSibXJ56SHDiOmcyT9-6YH_PYRcjXBOmLx4xK67WLjYdpiSMN_rlGXxMICv/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbxLFjO9-z2qKvb2CYso0ezHvcrpPuJpG3FB4lS0n6lMqvPIJa6KKRQJIdiJQoliZdg2/exec";
 
+    // Daftar nama penguji untuk dropdown
     const daftarPenguji = [
         "Dr. H. ANDANG FIRMAN TRIYADI, M.T.",
         "Drs. H. JEJEN HENDRA PERMANA, M.Si.",
@@ -1188,10 +1169,11 @@
     function renderDynamicForm(form) {
         const container = document.getElementById("formRenderArea");
         
-        // Hanya form aksi_perubahan yang menggunakan dropdown
+        // Tentukan apakah form ini menggunakan dropdown untuk nama penilai
         const useDropdown = (form.parent === "aksi_perubahan" && form.role === "Penguji");
+        
+        // Tentukan apakah form ini memerlukan catatan (form aksi_perubahan)
         const requiresCatatan = (form.parent === "aksi_perubahan");
-        const isPengampuMateri = form.id === 5;
         
         let namaPenilaiHtml = '';
         if (useDropdown) {
@@ -1207,12 +1189,7 @@
         let html = `<div class="form-card">
             <div class="form-title">${form.title} <span class="badge-role">${form.role}</span></div>`;
         
-        if (isPengampuMateri) {
-            html += `<div class="info-badge">
-                <i class="fas fa-info-circle"></i> <strong>Informasi:</strong> Penilaian Sikap dan Perilaku oleh Pengampu Materi akan di-average secara otomatis berdasarkan jumlah pengisi yang telah memberikan nilai. Setiap pengampu dapat mengisi nilai secara terpisah dan pada waktu yang berbeda. Nilai rata-rata akan langsung terisi di kolom 5C, 5D, 5E.
-            </div>`;
-        }
-        
+        // Tambahkan warning untuk form aksi_perubahan
         if (requiresCatatan) {
             html += `<div class="warning-badge">
                 <i class="fas fa-exclamation-triangle"></i> <strong>Perhatian!</strong> Untuk formulir ini, semua nilai dan catatan/masukan WAJIB diisi.
@@ -1238,6 +1215,7 @@
             html += `<div class="score-item"><label>${field.label} ${requiresCatatan ? '<span class="required">(wajib)</span>' : ''}</label><input type="number" step="0.1" min="0" max="100" placeholder="0–100" id="${fid}"></div>`;
         });
         
+        // Tambahan field catatan untuk form aksi_perubahan
         if (requiresCatatan) {
             html += `<div class="score-item" style="grid-column: 1/-1;">
                 <label>Catatan / Masukan <span class="required">(wajib)</span></label>
@@ -1254,6 +1232,7 @@
         html += `</div>`;
         container.innerHTML = html;
         
+        // Load saved nama penilai
         const saved = localStorage.getItem(`namaPenilai_${form.id}_role`);
         if (saved) { 
             if (useDropdown) {
@@ -1309,20 +1288,19 @@
         
         const useDropdown = (form.parent === "aksi_perubahan" && form.role === "Penguji");
         const requiresCatatan = (form.parent === "aksi_perubahan");
-        const isPengampuMateri = form.id === 5;
-        
         let namaPenilai;
+        
         if (useDropdown) {
             const selectEl = document.getElementById(`namaPenilai_${formId}`);
             namaPenilai = selectEl?.value;
             if (!namaPenilai) { 
-                showToast(`⚠️ Nama ${form.role} wajib dipilih`); 
+                showToast("⚠️ Nama penguji wajib dipilih"); 
                 return; 
             }
         } else {
             namaPenilai = document.getElementById(`namaPenilai_${formId}`)?.value.trim();
             if (!namaPenilai) { 
-                showToast(`⚠️ Nama ${form.role} wajib diisi`); 
+                showToast("⚠️ Nama penilai wajib diisi"); 
                 return; 
             }
         }
@@ -1348,6 +1326,7 @@
         let scores = {};
         let hasValues = false;
         
+        // Validasi nilai untuk form aksi_perubahan: semua wajib diisi
         for (let field of form.fields) {
             const inp = document.getElementById(`field_${form.id}_${field.col.replace(/\./g, '_')}`);
             let val = inp?.value.trim();
@@ -1375,6 +1354,7 @@
             }
         }
         
+        // Validasi catatan untuk form aksi_perubahan: wajib diisi
         let catatan = "";
         if (requiresCatatan) {
             const catatanEl = document.getElementById(`catatan_${formId}`);
@@ -1405,52 +1385,42 @@
                 ndh, 
                 namaPeserta, 
                 scores, 
-                timestamp: new Date().toISOString(),
-                isPengampuMateri: isPengampuMateri
+                timestamp: new Date().toISOString() 
             };
             
+            // Tambahkan catatan jika ada
             if (catatan) {
                 requestBody.catatan = catatan;
             }
             
-            const response = await fetch(GAS_URL, { 
+            await fetch(GAS_URL, { 
                 method: "POST", 
-                mode: "cors",
+                mode: "no-cors", 
                 headers: { "Content-Type": "application/json" }, 
                 body: JSON.stringify(requestBody) 
             });
+            localStorage.setItem(`namaPenilai_${form.id}_role`, namaPenilai);
             
-            const result = await response.json();
-            
-            if (result.success) {
-                localStorage.setItem(`namaPenilai_${form.id}_role`, namaPenilai);
-                
-                const nilaiCount = Object.keys(scores).length;
-                let message = `✓ Data tersimpan: ${form.title} - ${namaPeserta}`;
-                if (isPengampuMateri && result.average) {
-                    message += ` (Rata-rata: 5C=${result.average['5C']}, 5D=${result.average['5D']}, 5E=${result.average['5E']})`;
-                }
-                if (nilaiCount > 0 || catatan) {
-                    message += ` (${nilaiCount} nilai terisi${catatan ? ', catatan: Ya' : ''})`;
-                } else {
-                    message += ` (tanpa nilai)`;
-                }
-                showToast(message);
-                
-                form.fields.forEach(f => { 
-                    let el = document.getElementById(`field_${form.id}_${f.col.replace(/\./g, '_')}`); 
-                    if (el) el.value = ""; 
-                });
-                
-                if (requiresCatatan) {
-                    const catatanEl = document.getElementById(`catatan_${formId}`);
-                    if (catatanEl) catatanEl.value = "";
-                }
+            const nilaiCount = Object.keys(scores).length;
+            if (nilaiCount > 0 || catatan) {
+                showToast(`✓ Data tersimpan: ${form.title} - ${namaPeserta} (${nilaiCount} nilai terisi, catatan: ${catatan ? "Ya" : "Tidak"})`);
             } else {
-                showToast(`❌ Gagal menyimpan: ${result.error || 'Unknown error'}`);
+                showToast(`✓ Data tersimpan: ${form.title} - ${namaPeserta} (tanpa nilai)`);
             }
+            
+            // Reset form
+            form.fields.forEach(f => { 
+                let el = document.getElementById(`field_${form.id}_${f.col.replace(/\./g, '_')}`); 
+                if (el) el.value = ""; 
+            });
+            
+            if (requiresCatatan) {
+                const catatanEl = document.getElementById(`catatan_${formId}`);
+                if (catatanEl) catatanEl.value = "";
+            }
+            
         } catch (err) { 
-            showToast(`❌ Gagal menyimpan: ${err.message}`); 
+            showToast(`Gagal menyimpan: ${err.message}`); 
         } finally { 
             isLoading = false; 
             if (btn) { btn.innerHTML = originalText; btn.disabled = false; } 
@@ -1459,7 +1429,7 @@
 
     function showToast(msg) {
         let toast = document.createElement("div"); toast.className = "toast-msg"; toast.innerHTML = msg; document.body.appendChild(toast);
-        setTimeout(() => { toast.style.opacity = "0"; setTimeout(() => toast.remove(), 300); }, 4000);
+        setTimeout(() => { toast.style.opacity = "0"; setTimeout(() => toast.remove(), 300); }, 3000);
     }
 
     const scrollBtn = document.getElementById("scrollTop");
